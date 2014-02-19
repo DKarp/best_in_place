@@ -229,7 +229,13 @@ BestInPlaceEditor.prototype = {
 
   ajax : function(options) {
     options.url = this.url;
-    options.beforeSend = function(xhr){ xhr.setRequestHeader("Accept", "application/json"); };
+    options.beforeSend = function(xhr, data){
+      if(options.url == '#'){
+        editor.loadSuccessCallback('');
+        return false;
+      }
+      xhr.setRequestHeader("Accept", "application/json");
+    };
     return jQuery.ajax(options);
   },
 
